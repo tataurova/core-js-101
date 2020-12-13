@@ -93,11 +93,14 @@ function timeSpanToString(startDate, endDate) {
     }
     return m;
   }
-  const diffHours = endDate.getHours() - startDate.getHours();
-  const diffMinutes = endDate.getMinutes() - startDate.getMinutes();
-  const diffSeconds = endDate.getSeconds() - startDate.getSeconds();
-  const diffMilli = endDate.getMilliseconds() - startDate.getMilliseconds();
-
+  let diff = endDate - startDate;
+  const diffHours = Math.floor(diff / 1000 / 60 / 60);
+  diff -= diffHours * 1000 * 60 * 60;
+  const diffMinutes = Math.floor(diff / 1000 / 60);
+  diff -= diffMinutes * 1000 * 60;
+  const diffSeconds = Math.floor(diff / 1000);
+  diff -= diffSeconds * 1000;
+  const diffMilli = diff;
   return `${addZero(diffHours)}:${addZero(diffMinutes)}:${addZero(diffSeconds)}.${addZeros(diffMilli)}`;
 }
 
@@ -118,15 +121,15 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,18, 0) => Math.PI
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
+
 function angleBetweenClockHands(date) {
-  const dateStr = new Date(date.toUTCString());
+  const dateStr = new Date(date);
   const hours = dateStr.getHours() - 3;
   const minutes = dateStr.getMinutes();
   const angle = Math.abs(0.5 * (60 * hours - 11 * minutes));
   const res = angle > 180 ? 360 - angle : angle;
   return Math.abs(res * (Math.PI / 180));
 }
-
 
 module.exports = {
   parseDataFromRfc2822,
