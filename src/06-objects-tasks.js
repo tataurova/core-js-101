@@ -113,7 +113,6 @@ function fromJSON(proto, json) {
  *
  *  For more examples see unit tests.
  */
-
 class MainClass {
   constructor(value) {
     this.value = value;
