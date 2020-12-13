@@ -201,8 +201,7 @@ function partialUsingArguments(fn, ...args1) {
   const argsArray = Array.from(args1);
   return function result(...args2) {
     argsArray.push(...args2);
-    if (argsArray.length >= args1.length) return fn(...argsArray);
-    return false;
+    return fn(...argsArray);
   };
 }
 
