@@ -139,10 +139,7 @@ function doRectanglesOverlap(rect1, rect2) {
   const leftForTwo = rect2.left >= rect1.left + rect1.width;
   const topForOne = rect1.top >= rect2.top + rect2.height;
   const topForTwo = rect2.top >= rect1.top + rect1.height;
-  if (leftForOne || leftForTwo || topForOne || topForTwo) {
-    return false;
-  }
-  return true;
+  return !(leftForOne || leftForTwo || topForOne || topForTwo);
 }
 
 
@@ -165,7 +162,7 @@ function doRectanglesOverlap(rect1, rect2) {
  *
  * @param {object} circle
  * @param {object} point
- * @return {bool}
+ * @return {boolean}
  *
  * @example:
  *   { center: { x:0, y:0 }, radius:10 },  { x:0, y:0 }     => true
@@ -211,8 +208,8 @@ function findFirstSingleChar(str) {
  *
  * @param {number} a
  * @param {number} b
- * @param {bool} isStartIncluded
- * @param {bool} isEndIncluded
+ * @param {boolean} isStartIncluded
+ * @param {boolean} isEndIncluded
  * @return {string}
  *
  * @example
@@ -283,8 +280,8 @@ function reverseInteger(num) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-function isCreditCardNumber(ccn) {
-  const arr = ccn.toString().split('');
+function isCreditCardNumber(cnn) {
+  const arr = cnn.toString().split('');
   let sum = 0;
   for (let i = 0; i < arr.length; i += 1) {
     let num = +arr[i];
@@ -313,11 +310,11 @@ function isCreditCardNumber(ccn) {
  *   10000 ( 1+0+0+0+0 = 1 ) => 1
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
-function getDigitalRoot(num) {
-  if (num < 9) {
-    return num;
+function getDigitalRoot(n) {
+  if (n < 9) {
+    return n;
   }
-  const sum = num.toString().split('').reduce((acc, cur) => acc + Number(cur), 0);
+  const sum = n.toString().split('').reduce((acc, cur) => acc + Number(cur), 0);
   return getDigitalRoot(sum);
 }
 
@@ -343,18 +340,19 @@ function getDigitalRoot(num) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-/* eslint-disable */
 function isBracketsBalanced(str) {
-  let string = str;
+  let myString = str;
   const bracketsPairs = ['[]', '{}', '<>', '()'];
-  while (bracketsPairs.some((pair) => string.includes(pair))) {
-    bracketsPairs.forEach((bracketsPair) => {
-      while (string.includes(bracketsPair)) {
-        string = string.replace(bracketsPair, '');
-      }
-    });
+  const checkString = (el) => myString.includes(el);
+  const removePairBrackets = (pair) => {
+    while (myString.includes(pair)) {
+      myString = myString.replace(pair, '');
+    }
+  };
+  while (bracketsPairs.some((pair) => checkString(pair))) {
+    bracketsPairs.forEach((p) => removePairBrackets(p));
   }
-  return string.length === 0;
+  return myString.length === 0;
 }
 
 
@@ -379,14 +377,14 @@ function isBracketsBalanced(str) {
  *    365, 10 => '365'
  */
 function toNaryString(num, n) {
-  let res = [];
+  const res = [];
   let number = num;
   while (number >= n) {
     res.push(number % n);
     number = Math.floor(number / n);
   }
   res.push(number % n);
-  return +res.reverse().join('');
+  return `${res.reverse().join('')}`;
 }
 
 
@@ -403,9 +401,10 @@ function toNaryString(num, n) {
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
 function getCommonDirectoryPath(pathes) {
-  let res = [];
+  const res = [];
   let i = 0;
-  while (pathes.slice(1).every((path) => path[i] === pathes[0][i])) {
+  const checkPath = (path) => path[i] === pathes[0][i];
+  while (pathes.slice(1).every((path) => checkPath(path))) {
     res.push(pathes[0][i]);
     i += 1;
   }
@@ -433,13 +432,13 @@ function getCommonDirectoryPath(pathes) {
  */
 function getMatrixProduct(m1, m2) {
   const m3 = [];
-  for (let i = 0; i < m1.length; i++) {
+  for (let i = 0; i < m1.length; i += 1) {
     m3[i] = [];
   }
-  for (let j = 0; j < m2[0].length; j++) {
-    for (let i = 0; i < m1.length; i++) {
+  for (let j = 0; j < m2[0].length; j += 1) {
+    for (let i = 0; i < m1.length; i += 1) {
       let number = 0;
-      for (let l = 0; l < m2.length; l++) {
+      for (let l = 0; l < m2.length; l += 1) {
         number += m1[i][l] * m2[l][j];
       }
       m3[i][j] = number;
@@ -489,7 +488,8 @@ function evaluateTicTacToePosition(position) {
         return '0';
       }
     }
-  }
+    return undefined;
+  };
   for (let i = 0; i < position.length; i += 1) {
     if (isWin(position[i])) {
       return isWin(position[i]);
@@ -517,6 +517,7 @@ function evaluateTicTacToePosition(position) {
   if (isWin(backDiag)) {
     return isWin(backDiag);
   }
+  return undefined;
 }
 
 
