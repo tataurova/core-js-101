@@ -189,8 +189,11 @@ function logger(func, logFunc) {
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
 function partialUsingArguments(fn, ...args1) {
+  const argsArray = Array.from(args1);
   return function result(...args2) {
-    return args1.concat(args2).join('');
+    argsArray.push(...args2);
+    if (argsArray.length >= args1.length) return fn(...argsArray);
+    return false;
   };
 }
 
