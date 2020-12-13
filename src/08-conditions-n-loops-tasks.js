@@ -431,8 +431,21 @@ function getCommonDirectoryPath(pathes) {
  *                         [ 6 ]]
  *
  */
-function getMatrixProduct(/* m1, m2 */) {
-  throw new Error('Not implemented');
+function getMatrixProduct(m1, m2) {
+  const m3 = [];
+  for (let i = 0; i < m1.length; i++) {
+    m3[i] = [];
+  }
+  for (let j = 0; j < m2[0].length; j++) {
+    for (let i = 0; i < m1.length; i++) {
+      let number = 0;
+      for (let l = 0; l < m2.length; l++) {
+        number += m1[i][l] * m2[l][j];
+      }
+      m3[i][j] = number;
+    }
+  }
+  return m3;
 }
 
 
@@ -467,7 +480,43 @@ function getMatrixProduct(/* m1, m2 */) {
  *
  */
 function evaluateTicTacToePosition(position) {
-  throw new Error('Not implemented');
+  const isWin = (arr) => {
+    if (arr.length === 3) {
+      if (arr.every((el) => el === 'X')) {
+        return 'X';
+      }
+      if (arr.every((el) => el === '0')) {
+        return '0';
+      }
+    }
+  }
+  for (let i = 0; i < position.length; i += 1) {
+    if (isWin(position[i])) {
+      return isWin(position[i]);
+    }
+    const col = [];
+    for (let j = 0; j < position[0].length; j += 1) {
+      col.push(position[j][i]);
+    }
+    if (isWin(col)) {
+      return isWin(col);
+    }
+  }
+
+  const rightDiag = [];
+  const backDiag = [];
+  let count = position[0].length - 1;
+  for (let j = 0; j < position[0].length; j += 1) {
+    rightDiag.push(position[j][j]);
+    backDiag.push(position[count][j]);
+    count -= 1;
+  }
+  if (isWin(rightDiag)) {
+    return isWin(rightDiag);
+  }
+  if (isWin(backDiag)) {
+    return isWin(backDiag);
+  }
 }
 
 
