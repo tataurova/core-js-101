@@ -24,7 +24,11 @@
  *
  */
 
-const getComposition = (f, g) => (arg) => f(g(arg));
+function getComposition(f, g) {
+  return function result(arg) {
+    return f(g(arg));
+  };
+}
 
 /**
  * Returns the math power function with the specified exponent
@@ -43,7 +47,11 @@ const getComposition = (f, g) => (arg) => f(g(arg));
  *
  */
 
-const getPowerFunction = (exponent) => (x) => x ** exponent;
+function getPowerFunction(exponent) {
+  return function result(x) {
+    return x ** exponent;
+  };
+}
 
 /**
  * Returns the polynom function of one argument based on specified coefficients.
@@ -154,7 +162,7 @@ function logger(func, logFunc) {
   function logWrapper(...w) {
     const log = [];
     let logString = '';
-    if (w[1] === 0) {
+    if (w.length > 1) {
       w[0].forEach((arg) => {
         if (typeof arg === 'string') {
           log.push(`"${arg}"`);
@@ -179,6 +187,7 @@ function logger(func, logFunc) {
  * Return the function with partial applied arguments
  *
  * @param {Function} fn
+ * @param {array} args1
  * @return {Function}
  *
  * @example

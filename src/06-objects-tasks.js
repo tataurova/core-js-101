@@ -163,13 +163,15 @@ class MainClass {
 
   checkUniqueSelector(val) {
     if (this.value.includes(val)) {
-      throw Error('Element, id and pseudo-element should not occur more then one time inside the selector');
+      throw Error('Element, id and pseudo-element should not occur more'
+        + ' then one time inside the selector');
     }
   }
 
   checkOrder(val) {
     if (this.value.includes(val)) {
-      throw Error('Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element');
+      throw Error('Selector parts should be arranged in the following order: '
+        + 'element, id, class, attribute, pseudo-class, pseudo-element');
     }
   }
 }

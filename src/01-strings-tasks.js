@@ -142,7 +142,8 @@ function removeFirstOccurrences(str, value) {
  *   '<a>' => 'a'
  */
 function unbracketTag(str) {
-  return str.replace('<', '').replace('>', '');
+  return str.replace('<', '')
+    .replace('>', '');
 }
 
 
@@ -286,13 +287,14 @@ function encodeToRot13(str) {
     z: 'm',
   };
   const res = [];
-  str.split('').forEach((el) => {
-    if (obj[el]) {
-      res.push(obj[el]);
-    } else {
-      res.push(el);
-    }
-  });
+  str.split('')
+    .forEach((el) => {
+      if (obj[el]) {
+        res.push(obj[el]);
+      } else {
+        res.push(el);
+      }
+    });
   return res.join('');
 }
 
@@ -339,7 +341,10 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-  const array = ['A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣', 'A♦', '2♦', '3♦', '4♦', '5♦', '6♦', '7♦', '8♦', '9♦', '10♦', 'J♦', 'Q♦', 'K♦', 'A♥', '2♥', '3♥', '4♥', '5♥', '6♥', '7♥', '8♥', '9♥', '10♥', 'J♥', 'Q♥', 'K♥', 'A♠', '2♠', '3♠', '4♠', '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠'];
+  const array = ['A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣',
+    'A♦', '2♦', '3♦', '4♦', '5♦', '6♦', '7♦', '8♦', '9♦', '10♦', 'J♦', 'Q♦', 'K♦', 'A♥', '2♥',
+    '3♥', '4♥', '5♥', '6♥', '7♥', '8♥', '9♥', '10♥', 'J♥', 'Q♥', 'K♥', 'A♠', '2♠', '3♠', '4♠',
+    '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠'];
   return array.indexOf(value);
 }
 
