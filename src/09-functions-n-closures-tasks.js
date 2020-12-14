@@ -23,7 +23,6 @@
  *   getComposition(Math.sin, Math.asin)(x) => Math.sin(Math.asin(x))
  *
  */
-
 function getComposition(f, g) {
   return function result(arg) {
     return f(g(arg));
@@ -46,7 +45,6 @@ function getComposition(f, g) {
  *   power05(16) => 4
  *
  */
-
 function getPowerFunction(exponent) {
   return function result(x) {
     return x ** exponent;
@@ -66,7 +64,6 @@ function getPowerFunction(exponent) {
  *   getPolynom(8)     => y = 8
  *   getPolynom()      => null
  */
-
 function getPolynom(...k) {
   return function result(x) {
     return k.reduceRight((acc, cur, index) => acc + cur * (x ** (k.length - 1 - index)), 0);
@@ -88,7 +85,6 @@ function getPolynom(...k) {
  *   ...
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
-
 function memoize(func) {
   const cache = {};
 
@@ -118,7 +114,6 @@ function memoize(func) {
  * }, 2);
  * retryer() => 2
  */
-
 function retry(func, attempts) {
   let counter = 1;
   return function result() {
@@ -223,7 +218,6 @@ function partialUsingArguments(fn, ...args1) {
  *   getId4() => 7
  *   getId10() => 11
  */
-
 function getIdGeneratorFunction(startFrom) {
   let counter = startFrom;
   return function result() {
